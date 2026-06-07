@@ -29,12 +29,11 @@ body { background: #1a1a2e; display: flex; justify-content: center; align-items:
   </div>
 </div>
 <script>
-const URL = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://script.google.com/macros/s/AKfycby96upFL0rW8oAZBKC1E7oKAxjskyJak4f6GezgtdsswkA617E9qtl0zSxHloFW8YKX/exec");
+const URL = "https://corsproxy.io/?" + encodeURIComponent("https://script.google.com/macros/s/AKfycby96upFL0rW8oAZBKC1E7oKAxjskyJak4f6GezgtdsswkA617E9qtl0zSxHloFW8YKX/exec");");
 async function cargar() {
   try {
     const r = await fetch(URL);
-    const raw = await r.json();
-    const d = JSON.parse(raw.contents);
+    const d = await r.json();
     document.getElementById("hoy").textContent = "S/ " + d.total_dia.toLocaleString();
     document.getElementById("mes").textContent = "S/ " + d.total_mes.toLocaleString();
   } catch(e) {
