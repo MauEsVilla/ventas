@@ -29,13 +29,19 @@ body { background: #1a1a2e; display: flex; justify-content: center; align-items:
   </div>
 </div>
 <script>
-const URL = "https://script.google.com/macros/s/AKfycby96upFL0rW8oAZBKC1E7oKAxjskyJak4f6GezgtdsswkA617E9qtl0zSxHloFW8YKX/exec"
+const SHEET_ID = "1XMUK0jazN4kNTrbDyi97yczPbrsxFJ0CKdpSgs4qwrM";
+const API_KEY = "AIzaSyCfBrrEAw8pLjGFxe8vIn8kq26ESJrO98U";
+const URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/A1:B2?key=${API_KEY}`;
+
 async function cargar() {
   try {
     const r = await fetch(URL);
     const d = await r.json();
-    document.getElementById("hoy").textContent = "S/ " + d.total_dia.toLocaleString();
-    document.getElementById("mes").textContent = "S/ " + d.total_mes.toLocaleString();
+    const rows = d.values;
+    const mes = parseFloat(rows[0][1]);
+    const dia = parseFloat(rows[1][1]);
+    document.getElementById("hoy").textContent = "S/ " + dia.toLocaleString();
+    document.getElementById("mes").textContent = "S/ " + mes.toLocaleString();
   } catch(e) {
     document.getElementById("hoy").textContent = "Error";
   }
