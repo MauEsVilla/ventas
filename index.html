@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ventas</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: sans-serif; }
+.widget { background: rgba(255,255,255,0.06); border-radius: 20px; padding: 16px 24px; border: 0.5px solid rgba(255,255,255,0.1); min-width: 280px; }
+.labels { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.label { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.5); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.dot-green { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; }
+.dot-blue { width: 6px; height: 6px; border-radius: 50%; background: #60a5fa; }
+.values { display: flex; justify-content: space-between; align-items: baseline; }
+.hoy { color: #4ade80; font-size: 26px; font-weight: 500; }
+.mes { color: #60a5fa; font-size: 26px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="labels">
+    <div class="label"><div class="dot-green"></div>Hoy</div>
+    <div class="label"><div class="dot-blue"></div>Mes</div>
+  </div>
+  <div class="values">
+    <div class="hoy" id="hoy">Cargando...</div>
+    <div class="mes" id="mes">Cargando...</div>
+  </div>
+</div>
+<script>
+const URL = "https://script.google.com/macros/s/AKfycby96upFL0rW8oAZBKC1E7oKAxjskyJak4f6GezgtdsswkA617E9qtl0zSxHloFW8YKX/exec";
+async function cargar() {
+  try {
+    const r = await fetch(URL);
+    const d = await r.json();
+    document.getElementById("hoy").textContent = "S/ " + d.total_dia.toLocaleString();
+    document.getElementById("mes").textContent = "S/ " + d.total_mes.toLocaleString();
+  } catch(e) {
+    document.getElementById("hoy").textContent = "Error";
+  }
+  setTimeout(cargar, 300000);
+}
+cargar();
+</script>
+</body>
+</html>
